@@ -1,5 +1,6 @@
 import  Mongoose from "mongoose";
 import jwt from 'jsonwebtoken';
+import bcrypt from "bcrypt";
 
 const userSchema = new Mongoose.Schema({
  name:{
@@ -19,7 +20,8 @@ const userSchema = new Mongoose.Schema({
  },
  password: {
     type: String,
-    require: [true , 'User Password is Required']
+    required:true,
+    select:false
  },
  forgotPasswordToken: {
     type: String,
@@ -32,15 +34,25 @@ const userSchema = new Mongoose.Schema({
     timestamps:true
 });
 
+/*custom midleware to incrypt the password the password and save it */
+userSchema.pre("save",async function(next) {
+   if(!this.isModified('password')){
+      return next();
+   }
+   this.password = await bcrypt.hash(this.password, 10);
+   return next();
+})
+
+/* set the jwt token method   */
 userSchema.methods = {
    jwtToken(){
       return jwt.sign({
-         id: this._id,
-         email: this.email
+         id: this._id, /* this is for current user id */
+         email: this.email /* this is for currrent user email  for using signin */
       },
       process.env.SECRET,
       {
-         expiresIn:'24h'
+         expiresIn:'24h' /*  expriry time of token which will expire in given time  */
       }
    )
    }
