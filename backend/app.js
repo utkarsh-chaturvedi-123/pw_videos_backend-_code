@@ -1,5 +1,5 @@
 import express from "express"
-import cors from 'cors'
+import cors from 'cors' /* this is used for if you want to give permission to access  */
 
 const app = express()
 import authroute from "./router/authrouter.js"
