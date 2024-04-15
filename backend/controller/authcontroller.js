@@ -38,7 +38,7 @@ const signup = async (req, res, next) => {
       data: Result,
     });
   } catch (error) {
-    /* if block of code differenciate --> if you are creating the same Account (11000 is  a code which is differenciate) */
+    /* if block of code differenciate --> if you are creating the same Account (11000 is a code which is differenciate) */
     if (error.code === 11000) {
       return res.status(400).json({
         success: false,
