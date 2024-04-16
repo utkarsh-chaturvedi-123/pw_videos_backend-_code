@@ -4,7 +4,7 @@ import { signup ,signin ,getUser, logout} from "../controller/authcontroller.js"
 import { jwtAuth } from "../middleware/jwtAuth.js"
 
 authroute.post('/signup', signup)
-authroute.get('/signin', signin)
+authroute.post('/signin', signin)
 authroute.get('/user',jwtAuth, getUser)
 authroute.get('/logout', jwtAuth ,logout)/* i will also use jwtauth if user is signin or not */
 
