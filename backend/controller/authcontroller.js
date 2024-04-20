@@ -1,5 +1,5 @@
 import { UserModel } from "../model/userschema.js";
-import emailValidator from "email-validator"; /* dependencies for valid email id */
+import emailValidator from "email-validator"; /* dependencies for valid email is (For example -->  'example@mail.com' --> this is a formate of valid email) */
 import bcrypt from "bcrypt";
 
 const signup = async (req, res, next) => {
